@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Пошук квартир у Дніпрі</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2.5em;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #3498db;
+            font-weight: bold;
+            padding: 10px 20px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #2980b9;
+            background: #ecf0f1;
+            border-radius: 5px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        th {
+            background: #34495e;
+            color: #fff;
+            padding: 15px;
+            text-transform: uppercase;
+            font-size: 0.9em;
+            letter-spacing: 1px;
+        }
+
+        td {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+            transition: background 0.3s ease;
+        }
+
+        tr:hover td {
+            background: #f9f9f9;
+        }
+
+        td a {
+            color: #e74c3c;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        td a:hover {
+            color: #c0392b;
+            text-decoration: underline;
+        }
+
+        /* Адаптивний дизайн */
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 1.8em;
+            }
+
+            th, td {
+                padding: 10px;
+                font-size: 0.9em;
+            }
+
+            .nav-links a {
+                display: inline-block;
+                margin: 5px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Квартири у Дніпрі</h1>
+    <div class="nav-links">
+        <a href="/api/apartments/refresh">Оновити дані</a> |
+        <a href="/api/apartments/export">Експортувати в Excel</a>
+    </div>
+
+    <table>
+        <tr>
+            <th>Назва</th>
+            <th>Ціна (грн)</th>
+            <th>Ціна (USD)</th>
+            <th>Дата</th>
+        </tr>
+        <tr th:each="apt : ${apartments}">
+            <td><a th:href="${apt.url}" th:text="${apt.title}"></a></td>
+            <td th:text="${apt.priceUah}"></td>
+            <td th:text="${apt.priceUsd}"></td>
+            <td th:text="${apt.datePosted}"></td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>
